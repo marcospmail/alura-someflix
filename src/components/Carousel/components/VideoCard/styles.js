@@ -21,11 +21,24 @@ export const VideoCardContainer = styled.a`
 
   transition: opacity .3s;
   &:hover,
-  &:focus {
-    opacity: .5;
+  &:focus  {
+    opacity: .8;
   }
   
   &:not(:first-child) {
     margin-left: 20px;
   }
+  
 `;
+
+export const VideoTitle = styled.span`
+    opacity: 0;  
+    font-size: 20px;
+    font-weight: bold;  
+    transition: opacity .4s;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+
+    ${VideoCardContainer}:hover & {
+      opacity: 1;
+    }
+`
