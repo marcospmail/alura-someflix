@@ -3,15 +3,20 @@ import React from 'react'
 import Menu from '../Menu'
 import Footer from '../Footer'
 
-import { Main } from './styles'
+import { Container, Main } from './styles'
 
 function PageDefault({ children }) {
+  const backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--black')
+
+
   return (
     <>
       <Menu />
-      <Main >
-        {children}
-      </Main>
+      <Container>
+        <Main >
+          {children}
+        </Main>
+      </Container>
       <Footer />
     </>
   )
