@@ -5,17 +5,19 @@ import Button from '../Button'
 
 import Logo from '../../assets/img/logo.png'
 
-import './styles.css'
+import Container from './styles'
 
-function Menu() {
+function Menu({ fullPage }) {
   return (
-    <nav className="Menu">
-      <Link to="/">
-        <img className="Logo" src={Logo} alt="Marcosflix logo" />
-      </Link>
+    <Container className="Container" fullPage={fullPage}>
+      <nav className="Menu">
+        <Link to="/">
+          <img className="Logo" src={Logo} alt="Marcosflix logo" />
+        </Link>
 
-      <Button as={Link} className="ButtonLink" to="/register/video">Novo vídeo</Button>
-    </nav>
+        <Button as={Link} className="ButtonLink" to="/register/video">Novo vídeo</Button>
+      </nav>
+    </Container>
   )
 }
 

@@ -3,34 +3,37 @@
   font-family: 'Roboto', sans-serif;
 }
 
+body, input, textarea, button {
+  font-family: 'Roboto', sans-serif;
+}
+
 :root {
   --primary: #2A7AE4;
   --black: #000000;
   --blackLighter: #9E9E9E;
   --grayLight: #F5F5F5;
-  --grayMedium: #e5e5e5; 
+  --grayMedium: #e5e5e5;
   --white: #FFFFFF;
   --frontEnd: #6BD1FF;
   --backEnd: #00C86F;
+  --inputBackground: #53585D;
 }
 
-html,
-body
- {
+html, body {
   margin: 0;
   padding: 0;
 }
 
 a {
   color: inherit;
-} 
+}
 
 ul {
   padding: 0;
 }
 
 #root {
-  min-height: calc(100vh - var(--bodyPaddingTop));
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
 }

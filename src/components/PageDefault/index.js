@@ -1,27 +1,32 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import Menu from '../Menu';
-import Footer from '../Footer';
+import Menu from '../Menu'
+import Footer from '../Footer'
 
-import { Container, Main } from './styles';
+import { Container, Main } from './styles'
 
-function PageDefault({ children }) {
+function PageDefault({ children, fullPage }) {
   return (
     <>
-      <Menu />
+      <Menu fullPage={fullPage} />
       <Container>
-        <Main>
+        <Main fullPage={fullPage}>
           {children}
         </Main>
       </Container>
       <Footer />
     </>
-  );
+  )
+}
+
+PageDefault.defaultProps = {
+  fullPage: false,
 }
 
 PageDefault.propTypes = {
   children: PropTypes.node.isRequired,
-};
+  fullPage: PropTypes.bool,
+}
 
-export default PageDefault;
+export default PageDefault

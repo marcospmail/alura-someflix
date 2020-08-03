@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { useAlert } from 'react-alert'
+import useForm from '../../../hooks/useForm'
 
-import { post } from '../../../services/api'
+import categoriesRepository from '../../../repositores/categories'
 
 import Loading from '../../../components/Loading'
 import PageDefault from '../../../components/PageDefault'
@@ -9,26 +10,28 @@ import FormField from '../../../components/FormField'
 import Button from '../../../components/Button'
 
 import {
-  Container, Categories, Category,
+  Container, Categories, Category, CategoryDeleteButton,
 } from './styles'
 
 function CategoryRegister() {
-  const categoryDefaultValue = {
+  const defaultValues = {
     name: '',
     description: '',
     color: '',
   }
 
+  const { values, handleChange, clearValues } = useForm(defaultValues)
+  const alert = useAlert()
+
   const [loading, setLoading] = useState(false)
   const [alternativeContentText, setAlternativeContentText] = useState('')
   const [categories, setCategories] = useState([])
-  const [category, setCategory] = useState(categoryDefaultValue)
 
   async function fetchCategories() {
     setLoading(true)
+
     try {
-      const response = await fetch('http://localhost:8080/categories')
-      const data = await response.json()
+      const data = await categoriesRepository.getAll()
       const newData = [...data]
 
       setCategories(newData)
@@ -44,37 +47,32 @@ function CategoryRegister() {
     fetchCategories()
   }, [])
 
-  function handleChange(e) {
-    const { name, value } = e.target
-
-    setCategory({
-      ...category,
-      [name]: value,
-    })
-  }
-
-  function clearCategory() {
-    setCategory(categoryDefaultValue)
-  }
-
   async function handleOnSubmit(e) {
     e.preventDefault()
 
-    const response = await post('http://localhost:8080/categories', category)
-    const parsedResponse = await JSON.parse(response)
+    try {
+      const data = await categoriesRepository.save(values)
+      setCategories([...categories, data])
+      clearValues()
+      alert.show('Category added')
+    } catch (err) {
+      alert.show('Failed to save the category', { type: 'error' })
+    }
+  }
 
-    setCategories([...categories, parsedResponse])
-    clearCategory()
+  async function handleDeleteCategory(category) {
+    try {
+      await categoriesRepository.remove(category)
+      setCategories(categories.filter((c) => c.id !== category.id))
+    } catch (err) {
+      alert.show('error', { type: 'error' })
+    }
   }
 
   return (
     <PageDefault>
 
       <Container>
-
-        <Link to="/">
-          &lt; Go home
-        </Link>
 
         <h1>Category register</h1>
 
@@ -84,7 +82,7 @@ function CategoryRegister() {
             label="Name"
             type="text"
             name="name"
-            value={category.name}
+            value={values.name}
             onChange={handleChange}
           />
 
@@ -92,7 +90,7 @@ function CategoryRegister() {
             label="Description"
             type="textarea"
             name="description"
-            value={category.description}
+            value={values.description}
             onChange={handleChange}
           />
 
@@ -100,7 +98,7 @@ function CategoryRegister() {
             label="Color"
             type="color"
             name="color"
-            value={category.color}
+            value={values.color}
             onChange={handleChange}
           />
 
@@ -118,12 +116,14 @@ function CategoryRegister() {
               </div>
             )
           )
-          || (categories.length && (
+          || (categories.length > 0 && (
             <Categories>
               {
                 categories.map((c) => (
                   <Category key={c.id} as="li" backgroundColor={c.color}>
                     {c.name}
+
+                    <CategoryDeleteButton as="a" type="button" onClick={() => handleDeleteCategory(c)}>Delete</CategoryDeleteButton>
                   </Category>
                 ))
               }
