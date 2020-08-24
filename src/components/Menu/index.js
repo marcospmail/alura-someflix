@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 
 import Button from '../Button'
@@ -15,10 +16,16 @@ function Menu({ fullPage }) {
           <img className="Logo" src={Logo} alt="Marcosflix logo" />
         </Link>
 
-        <Button as={Link} className="ButtonLink" to="/register/video">Novo vídeo</Button>
+        <Button as={Link} className="ButtonLink" to="/register/video">
+          New video
+        </Button>
       </nav>
     </Container>
   )
+}
+
+Menu.propTypes = {
+  fullPage: PropTypes.bool.isRequired,
 }
 
 export default Menu

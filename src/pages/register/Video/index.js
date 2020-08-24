@@ -21,7 +21,6 @@ function VideoRegister() {
     categoryId: undefined,
   }
 
-  // const { control } = useForm({})
   const [categories, setCategories] = useState([])
   const { values, handleChange, changeValue } = useForm(defaultValues)
   const alert = useAlert()
@@ -55,18 +54,14 @@ function VideoRegister() {
 
   return (
     <PageDefault>
-
       <Container>
         <header>
           <h1>Video register</h1>
 
-          <Link to="/register/category">
-            New category
-          </Link>
+          <Link to="/register/category">New category</Link>
         </header>
 
         <form onSubmit={handleOnSubmit}>
-
           <FormField
             label="Name"
             type="text"
@@ -98,13 +93,9 @@ function VideoRegister() {
             name="categoryId"
           />
 
-          <Button type="submit">
-            Save
-          </Button>
-
+          <Button type="submit">Save</Button>
         </form>
       </Container>
-
     </PageDefault>
   )
 }

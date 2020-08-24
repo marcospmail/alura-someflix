@@ -32,20 +32,17 @@ function Home(props) {
 
   return (
     <PageDefault fullPage>
-
-      {categories.length > 0 && categories[0].videos.length > 0
-        && (
-          <BannerMain
-            videoTitle={categories[0].videos[0].title}
-            url={categories[0].videos[0].url}
-            videoDescription={categories[0].videos[0].description}
-          />
-        )}
+      {categories.length > 0 && categories[0].videos.length > 0 && (
+        <BannerMain
+          videoTitle={categories[0].videos[0].title}
+          url={categories[0].videos[0].url}
+          videoDescription={categories[0].videos[0].description}
+        />
+      )}
 
       {categories.map((c, index) => (
         <Carousel key={c.id} ignoreFirstVideo={index === 0} category={c} />
       ))}
-
     </PageDefault>
   )
 }

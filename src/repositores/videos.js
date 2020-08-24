@@ -9,7 +9,7 @@ async function save(video) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ ...video, categoryId: 1 }),
+      body: JSON.stringify(video),
     })
 
     if (!response.ok) {
